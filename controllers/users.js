@@ -137,7 +137,7 @@ const deleteUserById = async (req, res, next) => {
 	// 		throw error('User not found', 404);
 	// 	}
 
-	// 	await user.remove();
+		await user.remove();
 	// 	return res.status(203).send();
 	// } catch (e) {
 	// 	next(e);
