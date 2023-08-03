@@ -110,7 +110,7 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variable files
-/one.js
+
 .env
 .env.development.local
 .env.test.local

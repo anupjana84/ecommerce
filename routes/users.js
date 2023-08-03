@@ -2,6 +2,7 @@ const router = require('express').Router();
 const {createNewUser,getUsers,fileuploaded} =require('../controllers/users');
 const User = require('../models/User');
 const { body } = require('express-validator');
+const {authenticate} = require('../controllers/auth')
 // const usersController = require('../controller/users');
 
 /**
@@ -41,7 +42,7 @@ const { body } = require('express-validator');
  * @visibility private
  */
 
-router.get('/users', getUsers);
+router.get('/users',authenticate, getUsers);
 
 /**
  * Create new user

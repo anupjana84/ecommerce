@@ -4,7 +4,7 @@ const authService = require('../service/auth');
  const {error} = require('../error');
  const { query, matchedData, validationResult } = require('express-validator');
 const path =require('path');
-
+const bcrypt = require('bcryptjs');
 
 
 const getUsers = async (req, res, next) => {
@@ -65,9 +65,6 @@ const postUser = async (req, res, next) => {
 
 const createNewUser= async(req, res, next)=>{
 	 const {name, email,password}=req.body
-
-
-
 	 const errors =validationResult(req);
 	//  console.log(error,'reee')
 
@@ -88,13 +85,15 @@ const createNewUser= async(req, res, next)=>{
 			return res.status(400).json({error:'Email Allready Register'})
 			
 		}
+		const salt = await bcrypt.genSalt(10);
+		const hash = await bcrypt.hash(password, salt);
 		const saveuser= new User({
-			name, email, password, 
+			name, email, password:hash
 		})
 		const newUser =await saveuser.save()
 		if (newUser) {
 			
-			return res.status(201).json({message:' Successfully'})
+			return res.status(201).json({message:'Data Save Successfully'})
 		}
 		console.log(newUser)
 		
